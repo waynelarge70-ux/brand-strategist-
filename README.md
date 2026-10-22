@@ -30,11 +30,17 @@ Instagram, TikTok and LinkedIn often block automated reading. For the best resul
 
 Requires Node 20 or later and an [Anthropic API key](https://console.anthropic.com/).
 
-```bash
-npm install
-export ANTHROPIC_API_KEY=sk-ant-...
-npm start            # http://localhost:3000
-```
+1. Get an API key: sign in at [console.anthropic.com](https://console.anthropic.com), add billing under **Settings → Billing**, then go to **Settings → API Keys → Create Key**.
+2. Copy `.env.example` to a new file called `.env` in the project folder, and paste your key after the `=`:
+   ```
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
+   `.env` is git-ignored, so the key never gets committed. Setting `ANTHROPIC_API_KEY` in your shell also works.
+3. Install and run:
+   ```bash
+   npm install
+   npm start            # http://localhost:3000
+   ```
 
 ### Command line
 

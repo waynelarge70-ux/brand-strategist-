@@ -19,6 +19,13 @@ export interface AnalysisResult {
   strategy: BrandStrategy;
 }
 
+// Pick up ANTHROPIC_API_KEY from a .env file in the project folder, if present.
+try {
+  process.loadEnvFile();
+} catch {
+  // No .env file: fall back to the shell environment.
+}
+
 const client = new Anthropic();
 
 function checkRefusal(message: Anthropic.Beta.BetaMessage): void {

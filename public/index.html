@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brand Strategist</title>
+<script src="/vendor/marked.umd.js"></script>
+<script src="/vendor/purify.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f5f2; --panel: #ffffff; --ink: #1d1b19; --muted: #6b655e;
+    --line: #e4dfd8; --accent: #c2410c; --accent-ink: #ffffff; --soft: #fdf1ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151311; --panel: #1f1c19; --ink: #f2eee9; --muted: #a59d93;
+            --line: #36312c; --accent: #fb923c; --accent-ink: #1d1b19; --soft: #2a201a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .lede { color: var(--muted); margin: 0 0 28px; }
+  form, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; }
+  .hint { font-weight: 400; color: var(--muted); }
+  input, textarea, select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+         background: var(--bg); color: var(--ink); font: inherit; }
+  textarea { min-height: 90px; resize: vertical; }
+  .field { margin-bottom: 16px; }
+  .profile-row { display: grid; grid-template-columns: 150px 1fr 36px; gap: 8px; margin-bottom: 8px; }
+  @media (max-width: 640px) { .profile-row { grid-template-columns: 110px 1fr 36px; } }
+  button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line);
+           background: var(--panel); color: var(--ink); padding: 8px 12px; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border: none; font-weight: 700;
+           padding: 12px 22px; font-size: 1rem; }
+  button:disabled { opacity: .6; cursor: progress; }
+  .consent { font-size: .85rem; color: var(--muted); margin: 12px 0 0; }
+  #progress { margin-top: 24px; display: none; }
+  #log { list-style: none; padding: 0; margin: 12px 0 0; font-size: .9rem; color: var(--muted);
+         max-height: 220px; overflow: auto; }
+  #log li { padding: 3px 0; overflow-wrap: anywhere; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--line);
+             border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite;
+             vertical-align: -2px; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #result { margin-top: 24px; display: none; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .score { display: flex; align-items: center; gap: 16px; background: var(--soft);
+           border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .score b { font-size: 2.4rem; color: var(--accent); line-height: 1; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .swatch { width: 64px; text-align: center; font-size: .7rem; color: var(--muted); }
+  .swatch div { height: 48px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 4px; }
+  #report h1 { font-size: 1.6rem; } #report h2 { margin-top: 2em; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  #report table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+  #report th, #report td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  #report blockquote { border-left: 3px solid var(--accent); margin: 0; padding: 4px 16px; background: var(--soft); }
+  #report a { color: var(--accent); overflow-wrap: anywhere; }
+  .error { color: #dc2626; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Brand Strategist</h1>
+  <p class="lede">Analyse a social profile and digital presence, then get a brand people want to be part of — and buy from.</p>
+
+  <form id="brief">
+    <div class="grid">
+      <div class="field"><label>Name *</label><input name="name" required placeholder="Jane Example" /></div>
+      <div class="field"><label>Business / brand name</label><input name="businessName" placeholder="Strong Mums Fitness" /></div>
+    </div>
+    <div class="field"><label>What do they do / sell?</label>
+      <textarea name="whatTheyDo" placeholder="Online strength coach for busy mums: programmes, community, 1:1 coaching"></textarea></div>
+    <div class="grid">
+      <div class="field"><label>Goals</label><textarea name="goals" placeholder="25k followers, fill a £97/month membership…"></textarea></div>
+      <div class="field"><label>Who they want to reach</label><textarea name="targetAudience" placeholder="Mums 30-45 who lost their routine after kids"></textarea></div>
+    </div>
+
+    <div class="field">
+      <label>Profiles &amp; links <span class="hint">— social profiles, website, link-in-bio, podcast, YouTube…</span></label>
+      <div id="profiles"></div>
+      <button type="button" id="addProfile">+ Add link</button>
+    </div>
+
+    <div class="field">
+      <label>Paste content <span class="hint">— bios, recent captions, top posts with likes/comments, analytics. Strongly recommended: Instagram, TikTok and LinkedIn often block automated reading.</span></label>
+      <textarea name="pastedContent" style="min-height:160px"></textarea>
+    </div>
+
+    <button class="primary" type="submit" id="go">Build my brand strategy</button>
+    <p class="consent">Use this for your own brand or for clients who have given you permission. Only public information is researched.</p>
+  </form>
+
+  <section id="progress" class="panel">
+    <div id="status"><span class="spinner"></span>Starting…</div>
+    <ul id="log"></ul>
+  </section>
+
+  <section id="result" class="panel">
+    <div class="toolbar">
+      <button type="button" id="dlMd">Download Markdown</button>
+      <button type="button" id="dlJson">Download JSON</button>
+      <button type="button" id="copy">Copy report</button>
+    </div>
+    <div id="summary"></div>
+    <article id="report"></article>
+  </section>
+</main>
+
+<script>
+const PLATFORMS = ["Instagram", "TikTok", "LinkedIn", "YouTube", "X / Twitter", "Facebook", "Threads", "Pinterest", "Podcast", "Website", "Link-in-bio", "Other"];
+const profilesEl = document.getElementById("profiles");
+
+function addProfileRow(platform = "Instagram", url = "") {
+  const row = document.createElement("div");
+  row.className = "profile-row";
+  const sel = document.createElement("select");
+  PLATFORMS.forEach(p => sel.add(new Option(p, p, false, p === platform)));
+  const input = document.createElement("input");
+  input.placeholder = "https://… or @handle";
+  input.value = url;
+  const del = document.createElement("button");
+  del.type = "button"; del.textContent = "×"; del.title = "Remove";
+  del.onclick = () => row.remove();
+  row.append(sel, input, del);
+  profilesEl.append(row);
+}
+addProfileRow("Instagram"); addProfileRow("Website");
+document.getElementById("addProfile").onclick = () => addProfileRow("Other");
+
+let last = null;
+const $ = id => document.getElementById(id);
+
+function log(text) {
+  const li = document.createElement("li");
+  li.textContent = text;
+  $("log").append(li);
+  $("log").scrollTop = $("log").scrollHeight;
+}
+
+function download(name, text, type) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = name; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function renderResult(r) {
+  last = r;
+  const s = r.strategy;
+  const summary = $("summary");
+  summary.replaceChildren();
+  const score = document.createElement("div");
+  score.className = "score";
+  const b = document.createElement("b"); b.textContent = s.presenceAudit.overallScore;
+  const p = document.createElement("div"); p.textContent = s.presenceAudit.verdict;
+  score.append(b, p);
+  const sw = document.createElement("div");
+  sw.className = "swatches";
+  for (const c of s.visualIdentity.palette) {
+    const d = document.createElement("div"); d.className = "swatch";
+    const chip = document.createElement("div");
+    if (/^#[0-9a-f]{3,8}$/i.test(c.hex)) chip.style.background = c.hex;
+    d.append(chip, document.createTextNode(`${c.name} ${c.hex}`));
+    sw.append(d);
+  }
+  summary.append(score, sw);
+  $("report").innerHTML = DOMPurify.sanitize(marked.parse(r.markdown));
+  $("result").style.display = "block";
+  $("result").scrollIntoView({ behavior: "smooth" });
+}
+
+$("dlMd").onclick = () => last && download("brand-strategy.md", last.markdown, "text/markdown");
+$("dlJson").onclick = () => last && download("brand-strategy.json", JSON.stringify(last.strategy, null, 2), "application/json");
+$("copy").onclick = async () => { if (last) { await navigator.clipboard.writeText(last.markdown); $("copy").textContent = "Copied ✓"; } };
+
+$("brief").onsubmit = async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const brief = Object.fromEntries(["name", "businessName", "whatTheyDo", "goals", "targetAudience", "pastedContent"].map(k => [k, fd.get(k) || ""]));
+  brief.profiles = [...profilesEl.querySelectorAll(".profile-row")]
+    .map(r => ({ platform: r.querySelector("select").value, url: r.querySelector("input").value.trim() }))
+    .filter(p => p.url);
+
+  $("go").disabled = true;
+  $("result").style.display = "none";
+  $("progress").style.display = "block";
+  $("log").replaceChildren();
+  $("status").innerHTML = '<span class="spinner"></span>Starting…';
+
+  const setStatus = (text, done) => {
+    $("status").innerHTML = done ? "" : '<span class="spinner"></span>';
+    $("status").append(text);
+  };
+
+  try {
+    const res = await fetch("/api/analyse", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(brief) });
+    if (!res.ok) throw new Error((await res.json()).error || res.statusText);
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "";
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let nl;
+      while ((nl = buf.indexOf("\n")) >= 0) {
+        const line = buf.slice(0, nl); buf = buf.slice(nl + 1);
+        if (!line.trim()) continue;
+        const ev = JSON.parse(line);
+        if (ev.type === "status") setStatus(ev.message, false);
+        else if (ev.type === "search") log("🔎 " + ev.query);
+        else if (ev.type === "fetch") log("🌐 " + ev.url);
+        else if (ev.type === "result") { setStatus("✓ Strategy ready", true); renderResult(ev); }
+        else if (ev.type === "error") throw new Error(ev.message);
+      }
+    }
+  } catch (err) {
+    $("status").innerHTML = "";
+    const span = document.createElement("span");
+    span.className = "error"; span.textContent = "Error: " + err.message;
+    $("status").append(span);
+  } finally {
+    $("go").disabled = false;
+  }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "brand-strategist",
+  "version": "1.0.0",
+  "description": "AI brand strategist that analyses social profiles and digital presence to build a brand people want to join and buy from",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "cli": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waynelarge70-ux/brand-strategist-.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/waynelarge70-ux/brand-strategist-/issues"
+  },
+  "homepage": "https://github.com/waynelarge70-ux/brand-strategist-#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0",
+    "dompurify": "^3.4.17",
+    "express": "^5.3.0",
+    "marked": "^18.1.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "type": "module"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Jane Example",
+  "businessName": "Strong Mums Fitness",
+  "whatTheyDo": "Online strength coach for busy mums: 12-week programmes, a private community, and 1:1 coaching.",
+  "goals": "Grow from 4k to 25k Instagram followers in a year, fill a £97/month membership and launch a premium 1:1 tier.",
+  "targetAudience": "Mums aged 30-45 who used to train but lost their routine after kids.",
+  "profiles": [
+    { "platform": "Instagram", "url": "https://www.instagram.com/example" },
+    { "platform": "Website", "url": "https://example.com" }
+  ],
+  "pastedContent": "Instagram bio: 'Helping mums get strong 💪 | Online coach | DM me START'\n\nRecent posts:\n1. Reel: 3 exercises you can do while the kids nap (2.1k views, 94 likes)\n2. Carousel: My postpartum story (5.4k views, 310 likes, 48 comments — lots of 'this is me')\n3. Photo: Client transformation (1.2k views, 61 likes)"
+}

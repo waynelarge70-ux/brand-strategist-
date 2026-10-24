@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brand Strategist</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a brand book. Each agent is a specimen swatch; the hero is a live team thread beside the pitch. */
+:root {
+  --paper: #f5f6f3;
+  --surface: #ffffff;
+  --ink: #14171f;
+  --muted: #5b6070;
+  --line: #dfe1e6;
+  --cobalt: #2340e0;
+  --cobalt-soft: #e6eafc;
+  --signal: #ffcf33;
+  --mint: #1f9d74;
+  --on-accent: #ffffff;
+  --shadow: 0 1px 2px rgba(20,23,31,.06), 0 8px 24px rgba(20,23,31,.06);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --max: 1160px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1218; --surface: #171b24; --ink: #eef0f5; --muted: #9aa1b2; --line: #2a303d;
+    --cobalt: #7d92ff; --cobalt-soft: #1d2440; --signal: #ffd54d; --mint: #4cc79c; --on-accent: #0f1218;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1218; --surface: #171b24; --ink: #eef0f5; --muted: #9aa1b2; --line: #2a303d;
+  --cobalt: #7d92ff; --cobalt-soft: #1d2440; --signal: #ffd54d; --mint: #4cc79c; --on-accent: #0f1218;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+p { margin: 0; }
+.wrap {
+  max-width: var(--max); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 6px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 16px/1 var(--body); text-decoration: none; cursor: pointer;
+  padding: 14px 22px; border-radius: 999px; border: 1.5px solid var(--ink);
+  background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.accent { background: var(--cobalt); border-color: var(--cobalt); color: var(--on-accent); }
+
+/* Nav */
+header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+header.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 20px; text-decoration: none; }
+.logo-mark { width: 26px; height: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-mark i { border-radius: 4px; background: var(--cobalt); }
+.logo-mark i:nth-child(2) { background: var(--signal); }
+.logo-mark i:nth-child(3) { background: var(--mint); }
+.logo-mark i:nth-child(4) { background: var(--ink); }
+nav.links { display: flex; gap: 24px; font-size: 15px; }
+nav.links a { text-decoration: none; color: var(--muted); }
+nav.links a:hover { color: var(--ink); }
+header.nav .btn { padding: 10px 16px; font-size: 14px; }
+@media (max-width: 760px) { nav.links { display: none; } }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; padding-block: 72px 80px; }
+.hero .wrap > * { min-width: 0; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--cobalt-soft); color: var(--cobalt); font: 500 13px/1.2 var(--body); }
+.pill b { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); }
+.hero h1 { font-size: clamp(44px, 6.4vw, 84px); font-weight: 800; margin-block: 20px 22px; }
+.hero h1 em { font-style: normal; background: linear-gradient(transparent 14%, var(--signal) 14%, var(--signal) 92%, transparent 92%); padding-inline: 4px; }
+.hero h1 em { color: #14171f; }
+.hero .lede { font-size: 20px; color: var(--muted); max-width: 34ch; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero .proof { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--muted); }
+.hero .proof span::before { content: "✓"; color: var(--mint); font-weight: 700; margin-right: 8px; }
+@media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-block: 48px 56px; } }
+
+/* Thread mock */
+.thread { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.thread-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.thread-head strong { font-family: var(--display); font-size: 16px; }
+.avatars { display: flex; }
+.av { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font: 600 12px/1 var(--mono); color: var(--on-accent); border: 2px solid var(--surface); margin-left: -6px; }
+.av:first-child { margin-left: 0; }
+.msgs { display: grid; gap: 14px; padding: 18px; }
+.msg { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; animation: rise .5s ease both; }
+.msg > div { min-width: 0; }
+.msg .av { width: 32px; height: 32px; margin: 0; border: 0; }
+.msg .who { font-size: 13px; font-weight: 600; }
+.msg .who small { font: 400 11px var(--mono); color: var(--muted); margin-left: 6px; letter-spacing: .04em; }
+.msg .bubble { margin-top: 4px; font-size: 14.5px; line-height: 1.5; }
+.msg.you .bubble { background: var(--cobalt-soft); padding: 10px 12px; border-radius: 4px 12px 12px 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip { font: 500 12px/1 var(--mono); padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); }
+.swatch-row { display: flex; gap: 6px; margin-top: 8px; }
+.swatch-row i { flex: 1; height: 28px; border-radius: 6px; }
+.typing { display: inline-flex; gap: 4px; padding: 8px 0 0; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+.msg:nth-child(2) { animation-delay: .15s; } .msg:nth-child(3) { animation-delay: .3s; } .msg:nth-child(4) { animation-delay: .45s; } .msg:nth-child(5) { animation-delay: .6s; }
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+/* Agent colors */
+.c-pos { background: var(--cobalt); }
+.c-voice { background: var(--mint); }
+.c-vis { background: #e0567a; }
+.c-aud { background: #8a5cf6; }
+.c-comp { background: #e07a23; }
+.c-cal { background: var(--ink); color: var(--paper) !important; }
+
+/* Sections */
+section.band { padding-block: 96px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 14px; max-width: 720px; margin-bottom: 48px; }
+.sec-head h2 { font-size: clamp(34px, 4.4vw, 54px); font-weight: 800; }
+.sec-head p { color: var(--muted); font-size: 19px; max-width: 60ch; }
+@media (max-width: 640px) { section.band { padding-block: 64px; } }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+.steps li { min-width: 0; padding: 28px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); display: grid; gap: 12px; align-content: start; }
+.steps li::before { counter-increment: s; content: "Step " counter(s); font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cobalt); }
+.steps h3 { font-size: 24px; font-weight: 600; }
+.steps p { color: var(--muted); font-size: 16px; }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+
+/* Team specimen grid */
+.team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.agent { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; transition: transform .2s ease, box-shadow .2s ease; }
+.agent:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.agent .tile { height: 120px; padding: 16px 18px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
+.agent .tile .code { font: 500 12px var(--mono); letter-spacing: .08em; opacity: .9; }
+.agent .tile .big { font: 800 40px/1 var(--display); letter-spacing: -0.02em; }
+.agent .info { padding: 20px 18px 22px; display: grid; gap: 10px; align-content: start; }
+.agent h3 { font-size: 22px; font-weight: 600; }
+.agent p { color: var(--muted); font-size: 15.5px; }
+.agent .delivers { font: 400 12.5px/1.6 var(--mono); color: var(--ink); border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 4px; }
+@media (max-width: 960px) { .team { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .team { grid-template-columns: 1fr; } }
+
+/* Try it */
+.try { display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: start; }
+.try > * { min-width: 0; }
+.brief-form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 14px; font-weight: 600; }
+.field input, .field select, .field textarea { font: 400 16px/1.4 var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; width: 100%; }
+.field textarea { resize: vertical; min-height: 84px; }
+.output { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; gap: 20px; }
+.output .row { display: grid; gap: 6px; }
+.output .row h4 { margin: 0; font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.output .row h4 i { width: 10px; height: 10px; border-radius: 3px; }
+.output .statement { font: 600 22px/1.3 var(--display); letter-spacing: -0.01em; }
+.output ul { margin: 0; padding-left: 18px; }
+.output .note { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 860px) { .try { grid-template-columns: 1fr; } }
+
+/* Compare */
+.compare-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+table.compare { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 15.5px; }
+.compare th, .compare td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.compare tr:last-child td { border-bottom: 0; }
+.compare thead th { font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.compare thead th.us { color: var(--cobalt); }
+.compare td.us { font-weight: 600; background: var(--cobalt-soft); }
+.compare td { font-variant-numeric: tabular-nums; }
+
+/* Pricing */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plan { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 28px; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 14px; }
+.plan.featured { border: 2px solid var(--cobalt); position: relative; }
+.plan.featured .tag { position: absolute; top: -13px; left: 24px; background: var(--cobalt); color: var(--on-accent); font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; }
+.plan h3 { font-size: 24px; font-weight: 600; }
+.plan .price { font: 800 48px/1 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.plan .price small { font: 400 15px var(--body); color: var(--muted); letter-spacing: 0; }
+.plan .for { color: var(--muted); font-size: 15px; }
+.plan ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 15px; align-content: start; }
+.plan li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.plan li::before { content: "✓"; color: var(--mint); font-weight: 700; }
+.plan .btn { justify-content: center; }
+@media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 520px; } }
+
+/* FAQ */
+.faq { display: grid; gap: 12px; max-width: 820px; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 4px 20px; }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 0; font: 600 18px/1.35 var(--display); display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--cobalt); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 18px; color: var(--muted); max-width: 65ch; }
+
+/* Final CTA */
+.final { background: var(--cobalt); color: var(--on-accent); }
+.final .wrap { padding-block: 88px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.final .wrap > * { min-width: 0; }
+.final h2 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; }
+.final p { opacity: .85; margin-top: 16px; font-size: 19px; max-width: 44ch; }
+.signup { display: flex; flex-wrap: wrap; gap: 10px; }
+.signup input { flex: 1 1 220px; min-width: 0; font: 400 16px var(--body); padding: 15px 18px; border-radius: 999px; border: 0; background: var(--paper); color: var(--ink); }
+.signup .btn { background: var(--signal); border-color: var(--signal); color: #14171f; }
+.signup-msg { margin-top: 12px; font-size: 15px; min-height: 1.6em; }
+@media (max-width: 860px) { .final .wrap { grid-template-columns: 1fr; padding-block: 64px; } }
+
+footer .wrap { padding-block: 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Brand Strategist home">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      Brand Strategist
+    </a>
+    <nav class="links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#team">The team</a>
+      <a href="#try">Try a brief</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="#start">Start free</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="pill"><b></b>Six specialist agents, one shared workspace</span>
+        <h1>Your brand team, <em>on call</em> around the clock.</h1>
+        <p class="lede">Hand off a brief and a team of AI strategists gets to work on positioning, voice, visuals and launch plans. You review, comment and approve.</p>
+        <div class="ctas">
+          <a class="btn accent" href="#start">Build your team free</a>
+          <a class="btn ghost" href="#try">Try a sample brief</a>
+        </div>
+        <div class="proof">
+          <span>No credit card</span>
+          <span>Set up in about 5 minutes</span>
+          <span>You approve every output</span>
+        </div>
+      </div>
+
+      <div class="thread" aria-label="Example team thread">
+        <div class="thread-head">
+          <div>
+            <div class="label">Workspace · #launch-brief</div>
+            <strong>Oatline: rebrand for Gen Z</strong>
+          </div>
+          <div class="avatars" aria-hidden="true">
+            <span class="av c-pos">PS</span><span class="av c-voice">VC</span><span class="av c-vis">VI</span><span class="av c-aud">AR</span>
+          </div>
+        </div>
+        <div class="msgs">
+          <div class="msg you">
+            <span class="av c-cal" aria-hidden="true">You</span>
+            <div>
+              <div class="who">You <small>09:02</small></div>
+              <div class="bubble">We make oat milk. Sales are flat with under-25s. Find us an angle that isn't "sustainable" again.</div>
+            </div>
+          </div>
+          <div class="msg">
+            <span class="av c-aud" aria-hidden="true">AR</span>
+            <div>
+              <div class="who">Audience Researcher <small>09:04</small></div>
+              <div class="bubble">Reviewed 1,200 posts and reviews. The gap is texture: people say barista blends "split" in iced drinks. Nobody owns cold foam.</div>
+            </div>
+          </div>
+          <div class="msg">
+            <span class="av c-pos" aria-hidden="true">PS</span>
+            <div>
+              <div class="who">Positioning Strategist <small>09:06</small></div>
+              <div class="bubble">Draft position: <b>"The oat milk built for iced."</b> Three proof points are ready for your review.</div>
+              <div class="chips"><span class="chip">positioning.v1</span><span class="chip">3 proof points</span></div>
+            </div>
+          </div>
+          <div class="msg">
+            <span class="av c-vis" aria-hidden="true">VI</span>
+            <div>
+              <div class="who">Visual Identity Director <small>09:09</small></div>
+              <div class="bubble">Moodboard and a starter palette that leans cold.</div>
+              <div class="swatch-row" aria-hidden="true"><i style="background:#cfe6f2"></i><i style="background:#f4efe6"></i><i style="background:#2e5a88"></i><i style="background:#ff8a5c"></i></div>
+            </div>
+          </div>
+          <div class="msg">
+            <span class="av c-voice" aria-hidden="true">VC</span>
+            <div>
+              <div class="who">Voice &amp; Copy Lead <small>now</small></div>
+              <div class="typing" aria-label="typing"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">How it works</span>
+        <h2>From a brief to a launch-ready brand in three steps.</h2>
+        <p>Your agents work like a small agency. They share context, hand work to each other and check in with you at each decision point.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Write the brief</h3>
+          <p>Describe the business, the audience and what success looks like. Upload decks, past campaigns or competitor links, and every agent reads them.</p>
+        </li>
+        <li>
+          <h3>Pick your team</h3>
+          <p>Choose the specialists you need, or create your own. Give each one a role, instructions and boundaries, with no code required.</p>
+        </li>
+        <li>
+          <h3>Review and approve</h3>
+          <p>Agents post drafts to a shared thread. Comment inline, ask for another round, and export the approved brand book when you're happy.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="team">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Meet the team</span>
+        <h2>Six specialists who know each other's work.</h2>
+        <p>Each agent has one job and the context to do it well. Rename them, retrain them or add new roles whenever you like.</p>
+      </div>
+      <div class="team">
+        <article class="agent">
+          <div class="tile c-pos"><span class="code">AGENT 01 · STRATEGY</span><span class="big">Ps</span></div>
+          <div class="info">
+            <h3>Positioning Strategist</h3>
+            <p>Finds the space your brand can own and turns it into a sharp positioning statement.</p>
+            <div class="delivers">Positioning statement · Value props · Brand pillars</div>
+          </div>
+        </article>
+        <article class="agent">
+          <div class="tile c-voice"><span class="code">AGENT 02 · VERBAL</span><span class="big">Vc</span></div>
+          <div class="info">
+            <h3>Voice &amp; Copy Lead</h3>
+            <p>Defines how you sound, then writes taglines, headlines and website copy to match.</p>
+            <div class="delivers">Tone of voice guide · Taglines · Web copy</div>
+          </div>
+        </article>
+        <article class="agent">
+          <div class="tile c-vis"><span class="code">AGENT 03 · VISUAL</span><span class="big">Vi</span></div>
+          <div class="info">
+            <h3>Visual Identity Director</h3>
+            <p>Builds moodboards, palettes and type pairings, and briefs your designer or design tool.</p>
+            <div class="delivers">Moodboard · Palette · Type system · Logo brief</div>
+          </div>
+        </article>
+        <article class="agent">
+          <div class="tile c-aud"><span class="code">AGENT 04 · RESEARCH</span><span class="big">Ar</span></div>
+          <div class="info">
+            <h3>Audience Researcher</h3>
+            <p>Reads reviews, forums and social posts to build personas grounded in what people actually say.</p>
+            <div class="delivers">Personas · Jobs-to-be-done · Insight memos</div>
+          </div>
+        </article>
+        <article class="agent">
+          <div class="tile c-comp"><span class="code">AGENT 05 · MARKET</span><span class="big">Ca</span></div>
+          <div class="info">
+            <h3>Competitive Analyst</h3>
+            <p>Maps competitors' messaging and visuals so your brand stands apart.</p>
+            <div class="delivers">Competitor map · Messaging audit · White-space report</div>
+          </div>
+        </article>
+        <article class="agent">
+          <div class="tile c-cal"><span class="code">AGENT 06 · LAUNCH</span><span class="big">Lp</span></div>
+          <div class="info">
+            <h3>Launch Planner</h3>
+            <p>Turns the strategy into a channel plan and a content calendar your team can run.</p>
+            <div class="delivers">90-day calendar · Channel plan · Campaign briefs</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="try">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Try a brief</span>
+        <h2>See what the team sends back.</h2>
+        <p>Fill in a quick brief to preview a first-round draft. This preview uses templates. The real team researches and writes each answer from your brief.</p>
+      </div>
+      <div class="try">
+        <form class="brief-form" id="brief-form">
+          <div class="field">
+            <label for="brand-name">Brand name</label>
+            <input id="brand-name" value="Oatline" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <input id="category" value="oat milk" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="audience">Who it's for</label>
+            <input id="audience" value="iced-coffee drinkers under 25" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="personality">Personality</label>
+            <select id="personality">
+              <option value="playful">Playful and bold</option>
+              <option value="calm">Calm and premium</option>
+              <option value="expert">Expert and precise</option>
+              <option value="warm">Warm and neighbourly</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="edge">What makes it different</label>
+            <textarea id="edge">It stays smooth in cold drinks and foams without splitting.</textarea>
+          </div>
+          <button class="btn accent" type="submit">Generate first draft</button>
+        </form>
+
+        <div class="output" id="output" aria-live="polite">
+          <div class="row">
+            <h4><i class="c-pos"></i>Positioning Strategist</h4>
+            <p class="statement" id="out-position"></p>
+          </div>
+          <div class="row">
+            <h4><i class="c-voice"></i>Voice &amp; Copy Lead</h4>
+            <p id="out-voice"></p>
+            <ul id="out-taglines"></ul>
+          </div>
+          <div class="row">
+            <h4><i class="c-vis"></i>Visual Identity Director</h4>
+            <p id="out-visual"></p>
+            <div class="swatch-row" id="out-swatches" aria-hidden="true"></div>
+          </div>
+          <div class="row">
+            <h4><i class="c-cal"></i>Launch Planner</h4>
+            <ul id="out-launch"></ul>
+          </div>
+          <p class="note">Example output. Agents in your workspace cite their sources and ask follow-up questions before finalising.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Why a team of agents</span>
+        <h2>Agency-level thinking without the agency timeline.</h2>
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr><th></th><th>Brand agency</th><th>Freelancer</th><th class="us">Brand Strategist</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>First strategy draft</td><td>3–6 weeks</td><td>1–2 weeks</td><td class="us">Same day</td></tr>
+            <tr><td>Typical cost</td><td>$15k–$80k</td><td>$2k–$10k</td><td class="us">From $0/mo</td></tr>
+            <tr><td>Revision rounds</td><td>2–3 included</td><td>1–2 included</td><td class="us">Unlimited</td></tr>
+            <tr><td>Covers research, verbal, visual and launch</td><td>Yes</td><td>Usually one area</td><td class="us">Yes</td></tr>
+            <tr><td>Available at 11pm before a pitch</td><td>No</td><td>Sometimes</td><td class="us">Always</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Pricing</span>
+        <h2>Start free. Grow the team when you need it.</h2>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">$0 <small>/ month</small></div>
+          <p class="for">For founders testing an idea.</p>
+          <ul>
+            <li>3 agents</li>
+            <li>1 active brand</li>
+            <li>20 tasks per month</li>
+            <li>Brand book export (PDF)</li>
+          </ul>
+          <a class="btn ghost" href="#start">Start free</a>
+        </div>
+        <div class="plan featured">
+          <span class="tag">Most popular</span>
+          <h3>Pro</h3>
+          <div class="price">$19.99 <small>/ month</small></div>
+          <p class="for">For solo marketers and small studios.</p>
+          <ul>
+            <li>All 6 agents, plus custom agents</li>
+            <li>5 active brands</li>
+            <li>Unlimited tasks and revisions</li>
+            <li>File uploads and web research</li>
+            <li>7-day free trial</li>
+          </ul>
+          <a class="btn accent" href="#start">Start 7-day trial</a>
+        </div>
+        <div class="plan">
+          <h3>Team</h3>
+          <div class="price">$49 <small>/ seat / month</small></div>
+          <p class="for">For agencies running many clients.</p>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Unlimited brands</li>
+            <li>Shared workspaces and approvals</li>
+            <li>Client-ready share links</li>
+            <li>Priority support</li>
+          </ul>
+          <a class="btn ghost" href="#start">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">FAQ</span>
+        <h2>Questions people ask first.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Do I need any technical skills?</summary>
+          <p>No. You set up each agent by filling in a role, instructions and boundaries in plain language. If you can write a brief, you can build a team.</p>
+        </details>
+        <details>
+          <summary>Will the agents replace my designer or agency?</summary>
+          <p>They do the research, strategy and first drafts, which is usually where most of the time goes. Many teams use the output as a sharp brief for their designer, or to get more out of agency hours.</p>
+        </details>
+        <details>
+          <summary>Can I create my own agents?</summary>
+          <p>Yes. On Pro and Team you can add custom roles, such as a packaging copywriter or a naming specialist, and decide which files and tools each one can use.</p>
+        </details>
+        <details>
+          <summary>Who owns the work?</summary>
+          <p>You do. Everything your agents produce belongs to you and can be exported as a PDF brand book, slides or plain text.</p>
+        </details>
+        <details>
+          <summary>Is my brand data used to train models?</summary>
+          <p>No. Your briefs, uploads and outputs stay in your workspace and are not used to train models.</p>
+        </details>
+        <details>
+          <summary>Can I cancel any time?</summary>
+          <p>Yes. Plans are month to month, and you keep access to your exports after you cancel.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="start">
+    <div class="wrap">
+      <div>
+        <h2>Brief your first agent today.</h2>
+        <p>Join the early-access list and we'll set up your workspace with all six specialists ready to go.</p>
+      </div>
+      <div>
+        <form class="signup" id="signup">
+          <label for="email" class="label" style="position:absolute;left:-9999px">Email address</label>
+          <input id="email" type="email" placeholder="you@company.com" required autocomplete="email">
+          <button class="btn" type="submit">Join early access</button>
+        </form>
+        <p class="signup-msg" id="signup-msg"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Brand Strategist</span>
+    <span>Positioning · Voice · Visuals · Launch</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var palettes = {
+    playful: ["#ff5d8f", "#ffd23f", "#3bceac", "#1b1b3a"],
+    calm:    ["#e9e4da", "#a3b1a1", "#3d4a3f", "#c8a96a"],
+    expert:  ["#0b2545", "#13315c", "#8da9c4", "#eef4ed"],
+    warm:    ["#f2cc8f", "#e07a5f", "#81b29a", "#3d405b"]
+  };
+  var voices = {
+    playful: "Voice: bold, quick and a little cheeky. Short sentences, confident verbs, the occasional wink.",
+    calm:    "Voice: unhurried and assured. Fewer words, chosen carefully. Never shouts.",
+    expert:  "Voice: precise and evidence-led. Specific numbers, plain explanations, no hype.",
+    warm:    "Voice: friendly and familiar, like a neighbour who knows their stuff."
+  };
+  var visuals = {
+    playful: "Direction: high-contrast colour blocking, chunky rounded type, hand-drawn accents.",
+    calm:    "Direction: soft natural tones, generous white space, a refined serif paired with a quiet sans.",
+    expert:  "Direction: deep navy system, grid-led layouts, a technical sans with monospace details.",
+    warm:    "Direction: sunlit earthy palette, rounded friendly type, photography of real people."
+  };
+
+  function val(id, fallback) {
+    var v = (document.getElementById(id).value || "").trim();
+    return v || fallback;
+  }
+  function list(el, items) {
+    el.innerHTML = "";
+    items.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; el.appendChild(li); });
+  }
+  function firstClause(s) {
+    return s.replace(/[.!]+$/, "").split(/[,;]| and /)[0].trim().toLowerCase();
+  }
+
+  function render() {
+    var name = val("brand-name", "Your brand");
+    var cat = val("category", "your category");
+    var aud = val("audience", "your audience");
+    var mood = document.getElementById("personality").value;
+    var edge = val("edge", "it does one thing better than anyone else");
+    var benefit = firstClause(edge);
+
+    document.getElementById("out-position").textContent =
+      "For " + aud + ", " + name + " is the " + cat + " that " + benefit.replace(/^it /, "") + ".";
+    document.getElementById("out-voice").textContent = voices[mood];
+    list(document.getElementById("out-taglines"), [
+      name + ". Made for the way you actually drink it.",
+      "The " + cat + " that keeps up with you.",
+      "Less fuss. More " + name + "."
+    ]);
+    document.getElementById("out-visual").textContent = visuals[mood];
+    var sw = document.getElementById("out-swatches");
+    sw.innerHTML = "";
+    palettes[mood].forEach(function (c) { var i = document.createElement("i"); i.style.background = c; sw.appendChild(i); });
+    list(document.getElementById("out-launch"), [
+      "Weeks 1–2: teaser posts that show the difference, aimed at " + aud + ".",
+      "Weeks 3–6: creator partnerships and side-by-side demos.",
+      "Weeks 7–12: retail sampling, plus a referral push to grow repeat buyers."
+    ]);
+  }
+
+  document.getElementById("brief-form").addEventListener("submit", function (e) { e.preventDefault(); render(); });
+  render();
+
+  document.getElementById("signup").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value.trim();
+    document.getElementById("signup-msg").textContent =
+      "Thanks! " + email + " is on the list. Sign-ups aren't connected to a mailing list yet in this preview.";
+  });
+})();
+</script>
+</body>
+</html>
